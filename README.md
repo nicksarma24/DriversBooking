@@ -1,12 +1,12 @@
 
 # Booking System
 
-This is a Next.js app for managing drivers and bookings, using local JSON files for data storage. No external database required.
+This is a Next.js app for managing drivers and bookings, now using Supabase as the database backend for production and deployment.
 
 ## Tech Stack
 - **Frontend:** Next.js (JavaScript), Tailwind CSS
 - **Backend:** Next.js API routes
-- **Database:** Local JSON files (`/data/drivers.json`, `/data/bookings.json`)
+- **Database:** Supabase (PostgreSQL)
 
 ## Features
 - **Driver Management**
@@ -31,11 +31,35 @@ This is a Next.js app for managing drivers and bookings, using local JSON files 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Data Storage
-- All data is stored in local JSON files in the `/data` folder.
-- No external database or cloud service required.
+- All data is stored in Supabase tables (`drivers`, `bookings`).
+- Local JSON files are no longer used for production/deployment.
 
 ## Deployment
 - You can deploy this app to Vercel, Netlify, or Render.
+- Make sure to set your Supabase credentials in `.env.local`:
+	```env
+	NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+	NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+	```
+
+## Supabase Table Setup
+
+Create these tables in your Supabase project:
+
+**drivers**
+- `id` (integer, primary key, auto-increment)
+- `name` (text)
+- `car` (text)
+
+**bookings**
+- `id` (integer, primary key, auto-increment)
+- `customer` (text)
+- `pickup` (text)
+- `drop` (text)
+- `driver` (text)
+- `status` (text)
+
+Enable Row Level Security (RLS) and add policies to allow inserts and updates for development.
 
 ## File Structure
 - `src/app/page.js`: Main UI for driver and booking management

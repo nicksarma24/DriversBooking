@@ -201,7 +201,7 @@ export default function Home() {
                         const res = await fetch("/api/bookings", {
                           method: "PATCH",
                           headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ index: i }),
+                          body: JSON.stringify({ id: b.id }),
                         });
                         if (res.ok) {
                           const updated = await res.json();

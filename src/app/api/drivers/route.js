@@ -1,11 +1,14 @@
-import fs from "fs";
-import path from "path";
-
-const driversFile = path.join(process.cwd(), "data", "drivers.json");
+import { supabase } from "../../../utils/supabaseClient";
 
 export async function GET() {
-  const data = fs.readFileSync(driversFile, "utf-8");
-  return new Response(data, {
+  const { data, error } = await supabase.from("drivers").select("*");
+  if (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  return new Response(JSON.stringify(data), {
     status: 200,
     headers: { "Content-Type": "application/json" },
   });
@@ -13,10 +16,18 @@ export async function GET() {
 
 export async function POST(request) {
   const body = await request.json();
-  const data = JSON.parse(fs.readFileSync(driversFile, "utf-8"));
-  data.push(body);
-  fs.writeFileSync(driversFile, JSON.stringify(data, null, 2));
-  return new Response(JSON.stringify(body), {
+  const { data, error } = await supabase
+    .from("drivers")
+    .insert([body])
+    .select();
+  if (error) {
+    console.log("Supabase error (drivers POST):", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  return new Response(JSON.stringify(data[0]), {
     status: 201,
     headers: { "Content-Type": "application/json" },
   });
