@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 export default function Home() {
   // Booking management state
   const [bookings, setBookings] = useState([]);
-  const [bookingForm, setBookingForm] = useState({ customer: "", pickup: "", drop: "", driver: "" });
+  const [bookingForm, setBookingForm] = useState({
+    customer: "",
+    pickup: "",
+    drop: "",
+    driver: "",
+  });
   const [bookingLoading, setBookingLoading] = useState(false);
 
   // Booking form handlers
