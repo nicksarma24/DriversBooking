@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  // Booking management state
+
   const [bookings, setBookings] = useState([]);
   const [bookingForm, setBookingForm] = useState({
     customer: "",
@@ -12,7 +12,6 @@ export default function Home() {
   });
   const [bookingLoading, setBookingLoading] = useState(false);
 
-  // Booking form handlers
   const handleBookingChange = (e) => {
     setBookingForm({ ...bookingForm, [e.target.name]: e.target.value });
   };
@@ -36,7 +35,7 @@ export default function Home() {
   const [form, setForm] = useState({ name: "", car: "" });
   const [loading, setLoading] = useState(false);
 
-  // Driver form handlers
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -57,8 +56,6 @@ export default function Home() {
     setLoading(false);
   };
 
-  // ...existing code...
-  // (rest of the component remains unchanged)
   return (
     <div className="min-h-screen flex items-center justify-center bg-neutral-900">
       <div className="w-full max-w-xl mx-auto p-8 rounded-lg shadow-lg bg-neutral-800 flex flex-col items-center">
